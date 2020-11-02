@@ -11,22 +11,25 @@ import './index.css';
 
 import EventsNew from './components/events_new'
 import EventsShow from './components/events_show'
-import EventsIndex from './components/events_index';
-import * as serviceWorker from './serviceWorker';
+import EventsIndex from './components/events_index'
+import * as serviceWorker from './serviceWorker'
+import MyLayout from './components/my_layout'
 
 const enhancer = process.env.NODE_ENV === 'development' ? composeWithDevTools(applyMiddleware(thunk)) : applyMiddleware(thunk)
 const store = createStore(reducer, enhancer)
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <Switch>
-        <Route path="/events/new" component={EventsNew}></Route>
-        <Route path="/events/:id" component={EventsShow} />
-        <Route exact path="/events" component={EventsIndex} />
-        <Route exact path="/" component={EventsIndex} />
-      </Switch>
-    </BrowserRouter>
+    <MyLayout children={
+      <BrowserRouter>
+        <Switch>
+          <Route path="/events/new" component={EventsNew}></Route>
+          <Route path="/events/:id" component={EventsShow} />
+          <Route exact path="/events" component={EventsIndex} />
+          <Route exact path="/" component={EventsIndex} />
+        </Switch>
+      </BrowserRouter>
+    } />
   </Provider>,
   document.getElementById('root')
 );

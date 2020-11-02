@@ -5,24 +5,34 @@ import { readEvents } from '../actions'
 import _ from 'lodash'
 import { Link } from 'react-router-dom'
 
+import styled from 'styled-components';
+
+const Card = styled.div`
+    width: 700px;
+    border-bottom: 1px solid black;
+    padding: 40px;
+    display: flex;
+`;
+
 class EventsIndex extends Component {
 
   componentDidMount() {
-    console.log('hi!')
     this.props.readEvents()
   }
 
   renderEvents() {
     return _.map(this.props.events, event => (
-      <tr key={event.id}>
-        <td>{event.id}</td>
+      <Card key={event.id}>
+        <div>
+          {event.id}
+          </div>
         <td>
           <Link to={`/events/${event.id}`}>
             {event.title}
           </Link>
         </td>
         <td>{event.body}</td>
-      </tr>
+      </Card>
 
     ))
   }
@@ -30,18 +40,9 @@ class EventsIndex extends Component {
   render() {
     return (
       <React.Fragment>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Title</th>
-              <th>Body</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.renderEvents()}
-          </tbody>
-        </table>
+        <div>
+          {this.renderEvents()}
+        </div>
         <Link to="/events/new" >New Event</Link>
       </React.Fragment>
     )
